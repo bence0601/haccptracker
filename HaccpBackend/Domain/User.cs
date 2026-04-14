@@ -12,7 +12,9 @@ namespace HaccpBackend.Domain
 
         public Organization? Organization { get; set; }
 
-        public DateTime CreatedOnUtc { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public DateTime? ModifiedOnUtc { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public DateTime CreatedOnUtc { get ; private set ; }
+        public DateTime? ModifiedOnUtc { get; private set; }
+
+        public User() { }
     }
 }
