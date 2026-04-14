@@ -1,3 +1,4 @@
+using HaccpBackend.Data;
 using HaccpBackend.Interceptor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -13,12 +14,15 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddSingleton<UpdateAuditableEntitiesInterceptor>();
 
-//builder.Services.AddDbContext<ApplicationDbContext>((sp, optionsBuilder) =>
-//{
-//    var auditableInterceptor = sp.GetService<UpdateAuditableEntitiesInterceptor>();
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
-//    optionsBuilder.UseNpgsql(connectionString,)
-//})
+builder.Services.AddDbContext<AppDataContext>((sp, optionsBuilder) =>
+{
+    var auditableInterceptor = sp.GetService<UpdateAuditableEntitiesInterceptor>();
+
+    optionsBuilder.UseNpgsql(connectionString, o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery))
+    .AddInterceptors(auditableInterceptor);
+});
 
 var app = builder.Build();
 
