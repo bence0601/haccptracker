@@ -1,6 +1,6 @@
 ﻿using HaccpBackend.Common;
 
-namespace HaccpBackend.Domain
+namespace HaccpBackend.Vendor
 {
     public class Vendor : IAuditableEntity
     {
@@ -8,6 +8,7 @@ namespace HaccpBackend.Domain
         public required string Name { get; set; }
         public required string Address { get; set; }
         public string? PhoneNumber { get; set; }
+        public required VendorType Type { get; set; }
 
         public DateTime CreatedOnUtc { get; private set; }
         public DateTime? ModifiedOnUtc { get; private set; }
