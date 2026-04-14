@@ -1,6 +1,7 @@
-﻿namespace HaccpBackend.Domain
+﻿namespace HaccpBackend.Domain.CheckItems
 {
     public class ActualCheckItem
     {
     }
 }
+

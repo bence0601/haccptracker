@@ -1,4 +1,4 @@
-﻿namespace HaccpBackend.Domain
+﻿namespace HaccpBackend.Domain.Vendors
 {
     public class VendorUserAccess
     {
