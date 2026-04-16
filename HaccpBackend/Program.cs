@@ -21,7 +21,8 @@ builder.Services.AddDbContext<AppDataContext>((sp, optionsBuilder) =>
     var auditableInterceptor = sp.GetService<UpdateAuditableEntitiesInterceptor>();
 
     optionsBuilder.UseNpgsql(connectionString, o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery))
-    .AddInterceptors(auditableInterceptor);
+    .AddInterceptors(auditableInterceptor)
+    .UseSnakeCaseNamingConvention();
 });
 
 var app = builder.Build();
