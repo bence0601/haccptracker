@@ -1,4 +1,5 @@
 ﻿using HaccpBackend.Domain.CheckItems;
+using HaccpBackend.Domain.Logs;
 using HaccpBackend.Domain.Organizations;
 using HaccpBackend.Domain.Users;
 using HaccpBackend.Domain.Vendors;
@@ -15,6 +16,8 @@ namespace HaccpBackend.Data
         public DbSet<VendorUserAccess> VendorUserAccesses { get; set; }
         public DbSet<CheckItem> CheckItems { get; set; }
         public DbSet<ActualCheckItem> ActualCheckItems { get; set; }
+        public DbSet<Log> Logs { get; set; }
+        public DbSet<ActualLog> ActualLogs { get; set; }
 
 
         public AppDataContext(DbContextOptions<AppDataContext> options) : base(options)
@@ -24,9 +27,13 @@ namespace HaccpBackend.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-        }
 
-        
+            modelBuilder.Entity<ActualCheckItem>()
+                .HasDiscriminator<CheckItemType>("CheckItemType")
+                .HasValue<BooleanCheckItem>(CheckItemType.Boolean)
+                .HasValue<NumericCheckItem>(CheckItemType.Numeric)
+                .HasValue<TextCheckItem>(CheckItemType.FreeText);
+        }
 
     }
 }

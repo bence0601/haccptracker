@@ -6,6 +6,7 @@ namespace HaccpBackend.Domain.CheckItems
     {
         public int Id { get; init; }
         public required CheckItem BasedOnCheckItem { get; init; }
+        public CheckItemType CheckItemType { get; set; }
 
         public DateTime CreatedOnUtc { get; private set; }
         public DateTime? ModifiedOnUtc { get; private set; }
