@@ -3,13 +3,14 @@ using HaccpBackend.Domain.Logs;
 using HaccpBackend.Domain.Organizations;
 using HaccpBackend.Domain.Users;
 using HaccpBackend.Domain.Vendors;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace HaccpBackend.Data
 {
-    public class AppDataContext : DbContext
+    public class AppDataContext : IdentityDbContext<User,IdentityRole<int>, int>
     {
-        public DbSet<User> Users { get; set; }
         public DbSet<Organization> Organizations { get; set; }
         public DbSet<Vendor> Vendors { get; set; }
         public DbSet<OpeningHour> OpeningHours { get; set; }
