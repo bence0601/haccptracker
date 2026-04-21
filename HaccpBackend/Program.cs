@@ -1,5 +1,7 @@
 using HaccpBackend.Data;
+using HaccpBackend.Domain.Users;
 using HaccpBackend.Interceptor;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
@@ -24,6 +26,9 @@ builder.Services.AddDbContext<AppDataContext>((sp, optionsBuilder) =>
     .AddInterceptors(auditableInterceptor)
     .UseSnakeCaseNamingConvention();
 });
+
+builder.Services.AddIdentity<User, IdentityRole<int>>()
+    .AddEntityFrameworkStores<AppDataContext>();
 
 var app = builder.Build();
 
