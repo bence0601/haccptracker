@@ -1,8 +1,4 @@
-﻿using HaccpBackend.Domain.CheckItems;
-using HaccpBackend.Domain.Logs;
-using HaccpBackend.Domain.Organizations;
-using HaccpBackend.Domain.Users;
-using HaccpBackend.Domain.Vendors;
+﻿using HaccpBackend.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;

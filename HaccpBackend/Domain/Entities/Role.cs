@@ -1,4 +1,4 @@
-﻿namespace HaccpBackend.Domain.Vendors
+﻿namespace HaccpBackend.Domain.Entities
 {
     public enum Role
     {

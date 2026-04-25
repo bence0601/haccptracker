@@ -1,5 +1,5 @@
 using HaccpBackend.Data;
-using HaccpBackend.Domain.Users;
+using HaccpBackend.Domain.Entities;
 using HaccpBackend.Interceptor;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

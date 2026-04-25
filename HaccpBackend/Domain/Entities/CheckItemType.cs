@@ -1,4 +1,4 @@
-﻿namespace HaccpBackend.Domain.CheckItems
+﻿namespace HaccpBackend.Domain.Entities
 {
     public enum CheckItemType
     {

@@ -1,6 +1,6 @@
-﻿using HaccpBackend.Common;
+﻿using HaccpBackend.Domain.Common;
 
-namespace HaccpBackend.Domain.Organizations
+namespace HaccpBackend.Domain.Entities
 {
     public class Organization : IAuditableEntity
     {

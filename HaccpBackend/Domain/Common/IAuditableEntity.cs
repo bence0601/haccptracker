@@ -1,4 +1,4 @@
-﻿namespace HaccpBackend.Common
+﻿namespace HaccpBackend.Domain.Common
 {
     internal interface IAuditableEntity
     {

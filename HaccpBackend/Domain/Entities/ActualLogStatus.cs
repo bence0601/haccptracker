@@ -1,4 +1,4 @@
-﻿namespace HaccpBackend.Domain.Logs
+﻿namespace HaccpBackend.Domain.Entities
 {
     public enum ActualLogStatus
     {

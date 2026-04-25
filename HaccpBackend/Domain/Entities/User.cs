@@ -1,8 +1,7 @@
-﻿using HaccpBackend.Common;
-using HaccpBackend.Domain.Organizations;
+﻿using HaccpBackend.Domain.Common;
 using Microsoft.AspNetCore.Identity;
 
-namespace HaccpBackend.Domain.Users
+namespace HaccpBackend.Domain.Entities
 {
     public class User : IdentityUser<int>, IAuditableEntity
     {

@@ -1,4 +1,4 @@
-﻿using HaccpBackend.Common;
+﻿using HaccpBackend.Domain.Common;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Diagnostics;

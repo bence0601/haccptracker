@@ -1,7 +1,6 @@
-﻿using HaccpBackend.Common;
-using HaccpBackend.Domain.Users;
+﻿using HaccpBackend.Domain.Common;
 
-namespace HaccpBackend.Domain.Logs
+namespace HaccpBackend.Domain.Entities
 {
     public class ActualLog : IAuditableEntity
     {
