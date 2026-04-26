@@ -1,3 +1,4 @@
+using Carter;
 using HaccpBackend.Data;
 using HaccpBackend.Domain.Entities;
 using HaccpBackend.Interceptor;
@@ -10,6 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -18,17 +20,28 @@ builder.Services.AddSingleton<UpdateAuditableEntitiesInterceptor>();
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
-builder.Services.AddDbContext<AppDataContext>((sp, optionsBuilder) =>
-{
-    var auditableInterceptor = sp.GetService<UpdateAuditableEntitiesInterceptor>();
+builder.Services.AddDbContext<AppDataContext>(
+    (sp, optionsBuilder) =>
+    {
+        var auditableInterceptor = sp.GetService<UpdateAuditableEntitiesInterceptor>();
 
-    optionsBuilder.UseNpgsql(connectionString, o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery))
-    .AddInterceptors(auditableInterceptor)
-    .UseSnakeCaseNamingConvention();
-});
+        optionsBuilder
+            .UseNpgsql(
+                connectionString,
+                o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery)
+            )
+            .AddInterceptors(auditableInterceptor)
+            .UseSnakeCaseNamingConvention();
+    }
+);
 
-builder.Services.AddIdentity<User, IdentityRole<int>>()
-    .AddEntityFrameworkStores<AppDataContext>();
+builder.Services.AddIdentity<User, IdentityRole<int>>().AddEntityFrameworkStores<AppDataContext>();
+
+builder.Services.AddMediatR(config =>
+    config.RegisterServicesFromAssembly(typeof(Program).Assembly)
+);
+
+builder.Services.AddCarter();
 
 var app = builder.Build();
 
@@ -42,6 +55,8 @@ if (app.Environment.IsDevelopment())
     var dbContext = scope.ServiceProvider.GetRequiredService<AppDataContext>();
     dbContext.Database.Migrate();
 }
+
+app.MapCarter();
 
 app.UseHttpsRedirection();
 
