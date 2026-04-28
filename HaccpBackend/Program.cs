@@ -1,4 +1,5 @@
 using Carter;
+using FluentValidation;
 using HaccpBackend.Data;
 using HaccpBackend.Domain.Entities;
 using HaccpBackend.Interceptor;
@@ -42,6 +43,8 @@ builder.Services.AddMediatR(config =>
 );
 
 builder.Services.AddCarter();
+
+builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
 
 var app = builder.Build();
 
