@@ -1,10 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Carter;
+﻿using Carter;
 using FluentValidation;
 using HaccpBackend.Data;
 using HaccpBackend.Domain.Entities;
 using MediatR;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 using UserEntity = HaccpBackend.Domain.Entities.User;
 
 namespace HaccpBackend.Features.User
@@ -53,14 +54,15 @@ namespace HaccpBackend.Features.User
 
             public async Task<int> Handle(Command request, CancellationToken cancellationToken)
             {
-                var validationResult = _validator.Validate(request);
+                _validator.ValidateAndThrow(request);
 
-                if (!validationResult.IsValid) { }
+
                 Organization organization =
                     await _appDataContext.Organizations.FindAsync(
                         request.OrganizationID,
                         cancellationToken
-                    ) ?? throw new Exception("Organization not found");
+                    ) ?? throw new KeyNotFoundException("Organization not found");
+
 
                 UserEntity user = new UserEntity
                 {
@@ -82,20 +84,21 @@ namespace HaccpBackend.Features.User
             }
         }
 
-        public class Endpoint : ICarterModule
+        
+    }
+    public class RegisterUserEndpoint : ICarterModule
+    {
+        public void AddRoutes(IEndpointRouteBuilder app)
         {
-            public void AddRoutes(IEndpointRouteBuilder app)
-            {
-                app.MapPost(
-                    "api/signup",
-                    async (Command command, ISender sender) =>
-                    {
-                        int userId = await sender.Send(command);
+            app.MapPost(
+                "api/signup",
+                async (RegisterUser.Command command, ISender sender) =>
+                {
+                    int userId = await sender.Send(command);
 
-                        return Results.Ok(userId);
-                    }
-                );
-            }
+                    return Results.Ok(userId);
+                }
+            );
         }
     }
 }
