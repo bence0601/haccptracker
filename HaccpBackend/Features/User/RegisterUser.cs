@@ -1,17 +1,21 @@
-﻿using Carter;
+﻿using System.ComponentModel.DataAnnotations;
+using Carter;
 using FluentValidation;
 using HaccpBackend.Data;
 using HaccpBackend.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
-using System.ComponentModel.DataAnnotations;
 using UserEntity = HaccpBackend.Domain.Entities.User;
 
 namespace HaccpBackend.Features.User
 {
     public static class RegisterUser
     {
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// This should return something other than int in a real application, but for the sake of simplicity, we'll return the user ID. ///
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
         public sealed record Command(
             string UserName,
             string Email,
@@ -56,13 +60,11 @@ namespace HaccpBackend.Features.User
             {
                 _validator.ValidateAndThrow(request);
 
-
                 Organization organization =
                     await _appDataContext.Organizations.FindAsync(
                         request.OrganizationID,
                         cancellationToken
                     ) ?? throw new KeyNotFoundException("Organization not found");
-
 
                 UserEntity user = new UserEntity
                 {
@@ -83,9 +85,8 @@ namespace HaccpBackend.Features.User
                 return user.Id;
             }
         }
-
-        
     }
+
     public class RegisterUserEndpoint : ICarterModule
     {
         public void AddRoutes(IEndpointRouteBuilder app)
